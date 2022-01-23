@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'timeTableElement.dart';
+import 'subject.dart';
 
-class TableCard extends StatelessWidget {
-  final Data data;
+class SubjectCard extends StatelessWidget {
+  final Subject subject;
   final Widget time;
 
-  TableCard({Key? key, required this.data}) :
+  SubjectCard({Key? key, required this.subject}) :
         this.time = Text(
-          "${data.startTime.hour} ${data.startTime.minute}",
+          "${subject.startTime.hour} ${subject.startTime.minute}",
           style: TextStyle(fontSize: 20),
         ),
         super(key: key);
@@ -23,8 +23,8 @@ class TableCard extends StatelessWidget {
         shape: Border(),
         child:  ListTile(
           leading: time,
-          title: Text(data.subjectName, style: TextStyle(fontSize: 21),),
-          subtitle: Text(data.subjectCode),
+          title: Text(subject.name, style: TextStyle(fontSize: 21),),
+          subtitle: Text(subject.code),
         ),
       ),
     );

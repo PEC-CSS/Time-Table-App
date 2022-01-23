@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
 import 'database.dart';
-import 'timeTableElement.dart';
-import 'tableCard.dart';
+import 'subject.dart';
+import 'subjectCard.dart';
 import 'days.dart';
-
 
 
 class TableDayGenerate{
   static Widget generate(Days day){
-    List<Data> dayData = Database.get(day);
+    List<Subject> dayData = Database.get(day);
 
-    List<TableCard> cards = [];
-    for (Data data in dayData){
-      cards.add(TableCard(data: data,));
+    List<SubjectCard> cards = [];
+    for (Subject subject in dayData){
+      cards.add(SubjectCard(subject: subject,));
     }
 
     ListView listOfCards = ListView(
