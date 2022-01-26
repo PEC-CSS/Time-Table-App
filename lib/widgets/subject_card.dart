@@ -7,8 +7,9 @@ import '../route/hero_dialog_route.dart';
 class SubjectCard extends StatelessWidget {
   final Subject subject;
   final Widget time;
+  final Color color;
 
-  SubjectCard({Key? key, required this.subject}) :
+  SubjectCard({Key? key, required this.subject, this.color = Colors.red}) :
         this.time = Text(
           "${subject.startTime.hour} ${subject.startTime.minute}",
           style: TextStyle(fontSize: 20),
@@ -16,7 +17,12 @@ class SubjectCard extends StatelessWidget {
         super(key: key);
 
   void openCard(BuildContext context){
-    Navigator.push(context, HeroDialogRoute(builder: (context) => PopupSubjectCard(subject: this.subject)));
+    Navigator.push(context, HeroDialogRoute(
+        builder: (context) => PopupSubjectCard(
+            subject: this.subject,
+            color: this.color
+        )
+    ));
   }
 
   @override
@@ -25,7 +31,7 @@ class SubjectCard extends StatelessWidget {
       child: Hero(
         tag: this.subject.code,
         child: Card(
-          color: Colors.red,
+          color: this.color,
           margin: EdgeInsets.zero,
           shape: Border(),
           child:  ListTile(

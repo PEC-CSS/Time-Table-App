@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../model/subject_model.dart';
 
 class PopupSubjectCard extends StatelessWidget {
-  const PopupSubjectCard({Key? key, required this.subject}) : super(key: key);
+  const PopupSubjectCard({Key? key, required this.subject, this.color = Colors.red}) : super(key: key);
 
   final Subject subject;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class PopupSubjectCard extends StatelessWidget {
                     tag: subject.code,
                     child: Material(
                       borderRadius: BorderRadius.circular(16.0),
-                      child: LeftBox(subject: subject)
+                      child: LeftBox(subject: subject, color: this.color,)
                     )
                   ),
                 ),
@@ -46,12 +47,16 @@ class LeftBox extends StatelessWidget {
   const LeftBox({
     Key? key,
     required this.subject,
+    required this.color,
   }) : super(key: key);
 
   final Subject subject;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
+    DateTime finishTime = subject.startTime.add(subject.duration);
+
     return Container(
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
@@ -59,7 +64,7 @@ class LeftBox extends StatelessWidget {
             topLeft: Radius.circular(8.0),
             bottomLeft: Radius.circular(8.0)
           ),
-          color: Colors.red
+          color: this.color
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -75,7 +80,7 @@ class LeftBox extends StatelessWidget {
                   fontWeight: FontWeight.bold
               ),
             ),
-            Text("${subject.startTime.hour}:${subject.startTime.minute} - ${subject.startTime.add(subject.duration).hour}:${subject.startTime.add(subject.duration).minute}"),
+            Text("""${subject.startTime.hour}:${subject.startTime.minute} - ${finishTime.hour}:${finishTime.minute}"""),
             OutlinedButton(onPressed: (){}, child: Text("Tasks"))
           ],
         ),
