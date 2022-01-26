@@ -1,6 +1,6 @@
-import 'subject.dart';
-import 'days.dart';
-import 'task.dart';
+import '../model/subject_model.dart';
+import '../model/days.dart';
+import '../model/task_model.dart';
 
 class Database{
   static List<Subject> get(Days day){

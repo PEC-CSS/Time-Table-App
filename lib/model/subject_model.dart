@@ -1,4 +1,4 @@
-import 'task.dart';
+import 'task_model.dart';
 
 class Subject{
   String name;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'tableDayGenerator.dart';
-import 'days.dart';
+import 'table_day_generator.dart';
+import '../model/days.dart';
 
 class Home extends StatelessWidget {
   final String title;
@@ -19,7 +19,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return DefaultTabController(
       length: tabs.length,
       initialIndex: DateTime.now().weekday - 1,

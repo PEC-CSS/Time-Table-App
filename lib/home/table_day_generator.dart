@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'database.dart';
-import 'subject.dart';
-import 'subjectCard.dart';
-import 'days.dart';
+import '../database/database.dart';
+import '../model/subject_model.dart';
+import '../widgets/subject_card.dart';
+import '../model/days.dart';
 
 
 class TableDayGenerate{

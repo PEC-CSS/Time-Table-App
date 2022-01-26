@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
-import 'subject.dart';
-import 'popupSubjectCard.dart';
-import 'heroDialogRoute.dart';
+import '../model/subject_model.dart';
+import 'popup_subject_card.dart';
+import '../home/hero_dialog_route.dart';
 
 class SubjectCard extends StatelessWidget {
   final Subject subject;
@@ -26,7 +25,7 @@ class SubjectCard extends StatelessWidget {
       child: Hero(
         tag: this.subject.code,
         child: Card(
-          color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+          color: Colors.red,
           margin: EdgeInsets.zero,
           shape: Border(),
           child:  ListTile(

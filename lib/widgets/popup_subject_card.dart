@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'subject.dart';
+import '../model/subject_model.dart';
 
 class PopupSubjectCard extends StatelessWidget {
   const PopupSubjectCard({Key? key, required this.subject}) : super(key: key);
