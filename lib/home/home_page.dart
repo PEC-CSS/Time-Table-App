@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'table_day_generator.dart';
+import 'day.dart';
 import '../model/days.dart';
 
 class Home extends StatelessWidget {
@@ -32,13 +32,13 @@ class Home extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            TableDayGenerate.generate(Days.Monday),
-            TableDayGenerate.generate(Days.Tuesday),
-            TableDayGenerate.generate(Days.Wednesday),
-            TableDayGenerate.generate(Days.Thursday),
-            TableDayGenerate.generate(Days.Friday),
-            TableDayGenerate.generate(Days.Saturday),
-            TableDayGenerate.generate(Days.Sunday),
+            Day(day: Days.Monday),
+            Day(day: Days.Tuesday),
+            Day(day: Days.Wednesday),
+            Day(day: Days.Thursday),
+            Day(day: Days.Friday),
+            Day(day: Days.Saturday),
+            Day(day: Days.Sunday),
           ], //NOTE: The content for each day goes here
         ),
       ),

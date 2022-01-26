@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../model/subject_model.dart';
 import 'popup_subject_card.dart';
-import '../home/hero_dialog_route.dart';
+import '../route/hero_dialog_route.dart';
 
 class SubjectCard extends StatelessWidget {
   final Subject subject;
