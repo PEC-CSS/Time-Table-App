@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'day.dart';
+import '../model/days.dart';
 
 class Home extends StatelessWidget {
   final String title;
@@ -17,7 +19,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return DefaultTabController(
       length: tabs.length,
       initialIndex: DateTime.now().weekday - 1,
@@ -31,13 +32,13 @@ class Home extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Text("Page for Monday"),
-            Text("Page for Tuesday"),
-            Text("Page for Wednesday"),
-            Text("Page for Thursday"),
-            Text("Page for Friday"),
-            Text("Page for Saturday"),
-            Text("Page for Sunday"),
+            Day(day: Days.Monday),
+            Day(day: Days.Tuesday),
+            Day(day: Days.Wednesday),
+            Day(day: Days.Thursday),
+            Day(day: Days.Friday),
+            Day(day: Days.Saturday),
+            Day(day: Days.Sunday),
           ], //NOTE: The content for each day goes here
         ),
       ),
