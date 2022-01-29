@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'day.dart';
 import '../model/days.dart';
+import '../widgets/tasks_button.dart';
 
 class Home extends StatelessWidget {
   final String title;
@@ -41,6 +42,8 @@ class Home extends StatelessWidget {
             Day(day: Days.Sunday),
           ], //NOTE: The content for each day goes here
         ),
+        floatingActionButton: TasksButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       ),
     );
   }

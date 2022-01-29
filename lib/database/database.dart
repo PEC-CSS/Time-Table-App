@@ -2,6 +2,7 @@ import '../model/subject_model.dart';
 import '../model/days.dart';
 import '../model/task_model.dart';
 
+
 class Database{
   static List<Subject> get(Days day){
     List<Task> dummyTasks = [];
@@ -18,5 +19,15 @@ class Database{
     ));
 
     return subjects;
+  }
+
+  static List<Task> getTasks(){
+    List<Task> tasks = [];
+
+    tasks.add(Task(title: "Test work",  deadline: DateTime.now(), description: "Hello"));
+    tasks.add(Task(title: "Test work2", deadline: DateTime(2023)));
+
+
+    return tasks;
   }
 }
