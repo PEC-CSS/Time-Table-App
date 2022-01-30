@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_table_app/model/task_model.dart';
+import 'package:time_table_app/route/hero_dialog_route.dart';
+import 'package:time_table_app/widgets/popup_task_card.dart';
 
 
 class TaskCard extends StatelessWidget {
@@ -8,25 +10,33 @@ class TaskCard extends StatelessWidget {
   final Task task;
   final Color color;
 
+  void onTapCallback(BuildContext context){
+    Navigator.push(context, HeroDialogRoute(builder: (context) => PopupTaskCard(task: this.task, color: this.color,)));
+  }
+
   @override
   Widget build(BuildContext context) {
     String deadline = "${task.deadline.day}/${task.deadline.month}/${task.deadline.year} ";
     deadline += "${task.deadline.hour}:${task.deadline.minute}";
-    return Card(
-      child: ListTile(
-        title: Text(
-          task.title,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    return Hero(
+      tag: task.id,
+      child: Card(
+        child: ListTile(
+          title: Text(
+            task.title,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text(
+            deadline,
+            style: TextStyle(fontSize: 15),
+          ),
+          onTap: () => onTapCallback(context),
         ),
-        subtitle: Text(
-          deadline,
-          style: TextStyle(fontSize: 15),
-        ),
+        elevation: 0,
+        color: color,
+        margin: EdgeInsets.zero,
+        shape: ContinuousRectangleBorder(),
       ),
-      elevation: 0,
-      color: color,
-      margin: EdgeInsets.zero,
-      shape: ContinuousRectangleBorder(),
     );
   }
 }
