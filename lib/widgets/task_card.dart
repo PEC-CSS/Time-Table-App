@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:time_table_app/model/task_model.dart';
-import 'package:time_table_app/route/hero_dialog_route.dart';
+import 'package:time_table_app/route/popup_route.dart';
 import 'package:time_table_app/widgets/popup_task_card.dart';
 
 
@@ -11,7 +12,7 @@ class TaskCard extends StatelessWidget {
   final Color color;
 
   void onTapCallback(BuildContext context){
-    Navigator.push(context, HeroDialogRoute(builder: (context) => PopupTaskCard(task: this.task, color: this.color,)));
+    Navigator.push(context, CustomPopupRoute(builder: (context) => PopupTaskCard(task: this.task, color: this.color,)));
   }
 
   @override

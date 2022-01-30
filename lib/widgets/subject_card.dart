@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../model/subject_model.dart';
 import 'popup_subject_card.dart';
-import '../route/hero_dialog_route.dart';
+import 'package:time_table_app/route/popup_route.dart';
 
 class SubjectCard extends StatelessWidget {
   final Subject subject;
@@ -17,7 +17,7 @@ class SubjectCard extends StatelessWidget {
         super(key: key);
 
   void openCard(BuildContext context){
-    Navigator.push(context, HeroDialogRoute(
+    Navigator.push(context, CustomPopupRoute(
         builder: (context) => PopupSubjectCard(
             subject: this.subject,
             color: this.color
