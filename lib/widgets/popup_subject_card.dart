@@ -23,7 +23,7 @@ class PopupSubjectCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Hero(
-                    tag: subject.code,
+                    tag: subject.name.hashCode,
                     child: Material(
                       borderRadius: BorderRadius.circular(16.0),
                       child: LeftBox(subject: subject, color: this.color,)

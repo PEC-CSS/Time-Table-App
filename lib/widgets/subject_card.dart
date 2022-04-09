@@ -29,15 +29,14 @@ class SubjectCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Hero(
-        tag: this.subject.code,
+        tag: this.subject.name.hashCode,
         child: Card(
-          color: this.color,
+          color: this.subject.color,
           margin: EdgeInsets.zero,
           shape: Border(),
           child:  ListTile(
             leading: time,
             title: Text(subject.name, style: TextStyle(fontSize: 21),),
-            subtitle: Text(subject.code),
             onTap: () => openCard(context),
           ),
         ),

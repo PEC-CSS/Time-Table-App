@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:time_table_app/database/database.dart';
+import 'package:time_table_app/model/subject_model.dart';
 
 class NewSubject extends StatefulWidget {
   NewSubject(this.day, {Key? key}) : super(key: key);
@@ -12,6 +13,9 @@ class NewSubject extends StatefulWidget {
 class _NewSubjectState extends State<NewSubject> {
   DateTime startTime = DateTime.now();
   DateTime endTime = DateTime.now().add(Duration(hours: 1));
+
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
 
   void changeStartTime(TimeOfDay newTime) {
     DateTime current = DateTime.now();
@@ -30,6 +34,7 @@ class _NewSubjectState extends State<NewSubject> {
     return Scaffold(
       appBar: AppBar(
         title: TextField(
+          controller: titleController,
           decoration: InputDecoration(
             hintText: "Title",
             border: InputBorder.none,
@@ -70,11 +75,33 @@ class _NewSubjectState extends State<NewSubject> {
             ),
           ),
           SizedBox(height: 10,),
+          TextField(
+            controller: descriptionController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: "Description",
+            ),
+            textCapitalization: TextCapitalization.sentences,
+            minLines: 6,
+            maxLines: null,
+          ),
           ElevatedButton(
             child: Text("Add"),
-            onPressed: (){},
+            onPressed: (){
+              String title = titleController.text;
+              Duration duration = endTime.difference(startTime);
+              String desc = descriptionController.text.trim();
+              Subject newSubject = Subject(
+                  name: title,
+                  description: desc,
+                  startTime: startTime,
+                  duration: duration,
+                  color: Colors.redAccent //TODO: Add a color picker
+              );
+
+              Database.addNewSubject(newSubject);
+            },
           )
-          //TODO: add a description/subject code thing here
         ],
       ),
     );
