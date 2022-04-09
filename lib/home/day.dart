@@ -14,7 +14,7 @@ class Day extends StatelessWidget {
     List<Subject> subjects = Database.get(this.day);
     List<SubjectCard> cards = [];
     for (Subject subject in subjects){
-      cards.add(SubjectCard(subject: subject, color: Colors.red,));
+      cards.add(SubjectCard(subject: subject));
     }
     return cards;
   }

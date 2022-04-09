@@ -136,9 +136,9 @@ class _NewSubjectState extends State<NewSubject> {
                   startTime: startTime,
                   duration: duration,
                   color: currentColor
-                  );
+              );
 
-              Database.addNewSubject(newSubject);
+              Database.addNewSubject(newSubject, this.widget.day);
             },
           )
         ],

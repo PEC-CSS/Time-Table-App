@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import '../model/subject_model.dart';
 
 class PopupSubjectCard extends StatelessWidget {
-  const PopupSubjectCard({Key? key, required this.subject, this.color = Colors.red}) : super(key: key);
+  const PopupSubjectCard({Key? key, required this.subject}) : super(key: key);
 
   final Subject subject;
-  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +25,10 @@ class PopupSubjectCard extends StatelessWidget {
                     tag: subject.name.hashCode,
                     child: Material(
                       borderRadius: BorderRadius.circular(16.0),
-                      child: LeftBox(subject: subject, color: this.color,)
+                      child: SubjectInfoBox(subject: subject, color: this.subject.color,)
                     )
                   ),
                 ),
-                Expanded(
-                  child: RightBox(), //TODO: This box appears abruptly, add a fade effect here
-                )
               ],
             ),
           ),
@@ -43,8 +39,8 @@ class PopupSubjectCard extends StatelessWidget {
 }
 
 
-class LeftBox extends StatelessWidget {
-  const LeftBox({
+class SubjectInfoBox extends StatelessWidget {
+  const SubjectInfoBox({
     Key? key,
     required this.subject,
     required this.color,
@@ -53,6 +49,19 @@ class LeftBox extends StatelessWidget {
   final Subject subject;
   final Color color;
 
+  Color lighten(Color c, [int percent = 10]) {
+    assert(1 <= percent && percent <= 100);
+    var p = percent / 100;
+    return Color.fromARGB(
+        c.alpha,
+        c.red + ((255 - c.red) * p).round(),
+        c.green + ((255 - c.green) * p).round(),
+        c.blue + ((255 - c.blue) * p).round()
+    );
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     DateTime finishTime = subject.startTime.add(subject.duration);
@@ -60,10 +69,7 @@ class LeftBox extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(8.0),
-            bottomLeft: Radius.circular(8.0)
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
           color: this.color
       ),
       child: SingleChildScrollView(
@@ -81,7 +87,20 @@ class LeftBox extends StatelessWidget {
               ),
             ),
             Text("""${subject.startTime.hour}:${subject.startTime.minute} - ${finishTime.hour}:${finishTime.minute}"""),
-            OutlinedButton(onPressed: (){}, child: Text("Tasks"))
+            SizedBox(height: 8.0,),
+            Visibility(
+              visible: subject.description.isNotEmpty,
+              child: Container(
+                child: Text(subject.description,),
+                decoration: BoxDecoration(
+                  color: lighten(color, 30),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                width: double.maxFinite,
+                padding: EdgeInsets.all(4.0),
+
+              ),
+            )
           ],
         ),
       ),

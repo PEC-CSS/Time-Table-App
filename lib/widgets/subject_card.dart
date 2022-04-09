@@ -7,9 +7,8 @@ import 'package:time_table_app/route/popup_route.dart';
 class SubjectCard extends StatelessWidget {
   final Subject subject;
   final Widget time;
-  final Color color;
 
-  SubjectCard({Key? key, required this.subject, this.color = Colors.red}) :
+  SubjectCard({Key? key, required this.subject}) :
         this.time = Text(
           "${subject.startTime.hour} ${subject.startTime.minute}",
           style: TextStyle(fontSize: 20),
@@ -20,7 +19,6 @@ class SubjectCard extends StatelessWidget {
     Navigator.push(context, CustomPopupRoute(
         builder: (context) => PopupSubjectCard(
             subject: this.subject,
-            color: this.color
         )
     ));
   }
