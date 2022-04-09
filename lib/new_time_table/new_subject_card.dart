@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_table_app/database/database.dart';
 import 'package:time_table_app/model/subject_model.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 
 class NewSubject extends StatefulWidget {
   NewSubject(this.day, {Key? key}) : super(key: key);
@@ -16,6 +17,8 @@ class _NewSubjectState extends State<NewSubject> {
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+
+  Color currentColor = Colors.red;
 
   void changeStartTime(TimeOfDay newTime) {
     DateTime current = DateTime.now();
@@ -38,15 +41,9 @@ class _NewSubjectState extends State<NewSubject> {
           decoration: InputDecoration(
             hintText: "Title",
             border: InputBorder.none,
-            hintStyle: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 25.0
-            ),
+            hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
           ),
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 25.0
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
         ),
       ),
       body: ListView(
@@ -64,8 +61,7 @@ class _NewSubjectState extends State<NewSubject> {
                 TimeButton(
                     TimeOfDay.fromDateTime(startTime).replacing(minute: 0),
                     label: "Start: ",
-                    callback: changeStartTime
-                ),
+                    callback: changeStartTime),
                 TimeButton(
                   TimeOfDay.fromDateTime(endTime).replacing(minute: 0),
                   label: "End: ",
@@ -74,7 +70,50 @@ class _NewSubjectState extends State<NewSubject> {
               ],
             ),
           ),
-          SizedBox(height: 10,),
+          ElevatedButton(
+            onPressed: () async {
+              final colorBeforeDialog = currentColor;
+
+              if (!await ColorPicker(
+                color: currentColor,
+                onColorChanged: (Color col) {
+                  setState(() {
+                    currentColor = col;
+                  });
+                },
+                pickersEnabled: const <ColorPickerType, bool>{
+                  ColorPickerType.both: false,
+                  ColorPickerType.primary: true,
+                  ColorPickerType.accent: false,
+                  ColorPickerType.bw: false,
+                  ColorPickerType.custom: false,
+                  ColorPickerType.wheel: false,
+                },
+                width: 44,
+                height: 44,
+                borderRadius: 22,
+                heading: Text(
+                  'Select color',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                subheading: Text(
+                  'Select color shade',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+              ).showPickerDialog(context)) {
+                setState(() {
+                  currentColor = colorBeforeDialog;
+                });
+              }
+            },
+            child: Text("Color"),
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(currentColor)),
+          ),
+          SizedBox(
+            height: 10,
+          ),
           TextField(
             controller: descriptionController,
             decoration: InputDecoration(
@@ -87,7 +126,7 @@ class _NewSubjectState extends State<NewSubject> {
           ),
           ElevatedButton(
             child: Text("Add"),
-            onPressed: (){
+            onPressed: () {
               String title = titleController.text;
               Duration duration = endTime.difference(startTime);
               String desc = descriptionController.text.trim();
@@ -96,8 +135,8 @@ class _NewSubjectState extends State<NewSubject> {
                   description: desc,
                   startTime: startTime,
                   duration: duration,
-                  color: Colors.redAccent //TODO: Add a color picker
-              );
+                  color: currentColor
+                  );
 
               Database.addNewSubject(newSubject);
             },
@@ -107,7 +146,6 @@ class _NewSubjectState extends State<NewSubject> {
     );
   }
 }
-
 
 class TimeButton extends StatefulWidget {
   TimeButton(this.time, {Key? key, required this.label, required this.callback})
