@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'day.dart';
 import '../model/days.dart';
 import '../widgets/tasks_button.dart';
+import '../new_time_table/new_time_table_page.dart';
 
 class Home extends StatelessWidget {
   final String title;
   final List<Widget> tabs = <Widget>[
-    Tab(text: "Monday",),
-    Tab(text: "Tuesday",),
-    Tab(text: "Wednesday",),
-    Tab(text: "Thursday",),
-    Tab(text: "Friday",),
-    Tab(text: "Saturday",),
-    Tab(text: "Sunday",)
+    Tab(text: Days.Monday.name,),
+    Tab(text: Days.Tuesday.name,),
+    Tab(text: Days.Wednesday.name,),
+    Tab(text: Days.Thursday.name,),
+    Tab(text: Days.Friday.name,),
+    Tab(text: Days.Saturday.name,),
+    Tab(text: Days.Sunday.name,)
   ];
 
   Home({Key? key, required this.title}) : super(key: key);
@@ -31,6 +32,7 @@ class Home extends StatelessWidget {
             isScrollable: true,
           ),
         ),
+        drawer: HomeDrawer(),
         body: TabBarView(
           children: [
             Day(day: Days.Monday),
@@ -44,6 +46,42 @@ class Home extends StatelessWidget {
         ),
         floatingActionButton: TasksButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      ),
+    );
+  }
+}
+
+class HomeDrawer extends StatelessWidget {
+  const HomeDrawer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            child: Text("Welcome back user"),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+          ),
+          ListTile(
+            title: const Text(
+              "Create a new timetable",
+              style: TextStyle(
+                fontSize: 18.0
+              ),
+            ),
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => NewTimeTablePage()
+              ));
+            },
+          )
+        ],
       ),
     );
   }

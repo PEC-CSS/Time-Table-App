@@ -1,13 +1,12 @@
-import 'task_model.dart';
+import 'package:flutter/material.dart';
 
 class Subject{
   String name;
-  String code;
   DateTime startTime;
   Duration duration;
+  Color color;
+  String description;
 
-  List<Task> tasks;
-
-  Subject({required this.name, required this.code,
-    required this.startTime, required this.duration, required this.tasks});
+  Subject({required this.name, required this.color, this.description="",
+    required this.startTime, required this.duration});
 }

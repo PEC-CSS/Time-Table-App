@@ -7,11 +7,10 @@ import 'package:time_table_app/route/popup_route.dart';
 class SubjectCard extends StatelessWidget {
   final Subject subject;
   final Widget time;
-  final Color color;
 
-  SubjectCard({Key? key, required this.subject, this.color = Colors.red}) :
+  SubjectCard({Key? key, required this.subject}) :
         this.time = Text(
-          "${subject.startTime.hour} ${subject.startTime.minute}",
+          "${subject.startTime.hour.toString().padLeft(2, '0')} ${subject.startTime.minute.toString().padLeft(2, '0')}",
           style: TextStyle(fontSize: 20),
         ),
         super(key: key);
@@ -20,7 +19,6 @@ class SubjectCard extends StatelessWidget {
     Navigator.push(context, CustomPopupRoute(
         builder: (context) => PopupSubjectCard(
             subject: this.subject,
-            color: this.color
         )
     ));
   }
@@ -29,15 +27,14 @@ class SubjectCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Hero(
-        tag: this.subject.code,
+        tag: this.subject.hashCode,
         child: Card(
-          color: this.color,
+          color: this.subject.color,
           margin: EdgeInsets.zero,
           shape: Border(),
           child:  ListTile(
             leading: time,
             title: Text(subject.name, style: TextStyle(fontSize: 21),),
-            subtitle: Text(subject.code),
             onTap: () => openCard(context),
           ),
         ),
