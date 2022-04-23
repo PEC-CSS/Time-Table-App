@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:time_table_app/database/database.dart';
 import 'package:time_table_app/model/subject_model.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 
 class NewSubject extends StatefulWidget {
-  NewSubject(this.day, {Key? key}) : super(key: key);
+  NewSubject(this.day, this.data, {Key? key}) : super(key: key);
   final int day;
+  final List<List<Subject>> data;
 
   @override
   State<NewSubject> createState() => _NewSubjectState();
@@ -24,6 +24,7 @@ class _NewSubjectState extends State<NewSubject> {
     DateTime current = DateTime.now();
     startTime = DateTime(
         current.year, current.month, current.day, newTime.hour, newTime.minute);
+    print("called");
   }
 
   void changeEndTime(TimeOfDay newTime) {
@@ -128,17 +129,34 @@ class _NewSubjectState extends State<NewSubject> {
             child: Text("Add"),
             onPressed: () {
               String title = titleController.text;
-              Duration duration = endTime.difference(startTime);
-              String desc = descriptionController.text.trim();
-              Subject newSubject = Subject(
-                  name: title,
-                  description: desc,
-                  startTime: startTime,
-                  duration: duration,
-                  color: currentColor
-              );
+              if (title.isEmpty) {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: Text("Enter a title."),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("OK"))
+                        ],
+                      );
+                    });
+              } else {
+                Duration duration = endTime.difference(startTime);
+                String desc = descriptionController.text.trim();
+                Subject newSubject = Subject(
+                    name: title,
+                    description: desc,
+                    startTime: startTime,
+                    duration: duration,
+                    color: currentColor);
 
-              Database.addNewSubject(newSubject, this.widget.day);
+                this.widget.data[this.widget.day].add(newSubject);
+                Navigator.pop(context);
+              }
             },
           )
         ],
@@ -169,6 +187,7 @@ class _TimeButtonState extends State<TimeButton> {
     setState(() {
       if (newTime != null) {
         time = newTime;
+        widget.callback(time);
       }
     });
   }

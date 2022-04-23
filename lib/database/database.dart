@@ -29,7 +29,7 @@ class Database{
 
     return tasks;
   }
-  static addNewSubject(Subject subject, int day) {
+  static addNewTimeTable(List<List<Subject>> data) {
 
   }
 }

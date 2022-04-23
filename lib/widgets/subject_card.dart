@@ -10,7 +10,7 @@ class SubjectCard extends StatelessWidget {
 
   SubjectCard({Key? key, required this.subject}) :
         this.time = Text(
-          "${subject.startTime.hour} ${subject.startTime.minute}",
+          "${subject.startTime.hour.toString().padLeft(2, '0')} ${subject.startTime.minute.toString().padLeft(2, '0')}",
           style: TextStyle(fontSize: 20),
         ),
         super(key: key);
@@ -27,7 +27,7 @@ class SubjectCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Hero(
-        tag: this.subject.name.hashCode,
+        tag: this.subject.hashCode,
         child: Card(
           color: this.subject.color,
           margin: EdgeInsets.zero,

@@ -22,7 +22,7 @@ class PopupSubjectCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Hero(
-                    tag: subject.name.hashCode,
+                    tag: subject.hashCode,
                     child: Material(
                       borderRadius: BorderRadius.circular(16.0),
                       child: SubjectInfoBox(subject: subject, color: this.subject.color,)
@@ -86,7 +86,7 @@ class SubjectInfoBox extends StatelessWidget {
                   fontWeight: FontWeight.bold
               ),
             ),
-            Text("""${subject.startTime.hour}:${subject.startTime.minute} - ${finishTime.hour}:${finishTime.minute}"""),
+            Text("""${subject.startTime.hour.toString().padLeft(2, '0')}:${subject.startTime.minute.toString().padLeft(2, '0')} - ${finishTime.hour.toString().padLeft(2, '0')}:${finishTime.minute.toString().padLeft(2, '0')}"""),
             SizedBox(height: 8.0,),
             Visibility(
               visible: subject.description.isNotEmpty,
@@ -104,61 +104,6 @@ class SubjectInfoBox extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-
-class RightBox extends StatelessWidget {
-  const RightBox({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(8.0),
-          bottomRight: Radius.circular(8.0),
-        )
-      ),
-      padding: EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text("Up next", style: TextStyle(fontSize: 16),),
-          UpcomingSubject(title: "Test 1", color: Colors.green,),
-          UpcomingSubject(title: "Test 2", color: Colors.orange),
-          UpcomingSubject(title: "Test 3", color: Colors.pink),
-          UpcomingSubject(title: "Test 4", color: Colors.red)
-        ],
-      )
-    );
-  }
-}
-
-
-class UpcomingSubject extends StatelessWidget {
-  const UpcomingSubject({
-    Key? key,
-    required this.title,
-    required this.color,
-  }) : super(key: key);
-
-  final String title;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 2.0),
-      padding: EdgeInsets.all(4.0),
-      child: Center(child: Text(title)),
-      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(6.0)),
-      width: double.maxFinite,
     );
   }
 }
