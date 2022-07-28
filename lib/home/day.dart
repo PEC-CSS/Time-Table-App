@@ -5,24 +5,38 @@ import '../model/subject_model.dart';
 import '../widgets/subject_card.dart';
 import '../model/days.dart';
 
-class Day extends StatelessWidget {
+class Day extends StatefulWidget {
   const Day({Key? key, required this.day}) : super(key: key);
 
   final Days day;
 
-  List<Widget> createCards(){
-    List<Subject> subjects = Database.get(this.day);
-    List<SubjectCard> cards = [];
+  @override
+  State<Day> createState() => _DayState();
+}
+
+class _DayState extends State<Day> {
+  List<SubjectCard> cards = [];
+  bool loading = true;
+  void createCards() async{
+    List<Subject> subjects = await Database.get(this.widget.day);
     for (Subject subject in subjects){
       cards.add(SubjectCard(subject: subject));
     }
-    return cards;
+    setState(() {
+      loading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    createCards();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: createCards(),
+    return loading ? Center(child: CircularProgressIndicator()) : ListView(
+      children: cards,
     );
   }
 }

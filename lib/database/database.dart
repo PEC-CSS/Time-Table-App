@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 
 
 class Database{
-  static List<Subject> get(Days day){
+  static Future<List<Subject>> get(Days day) async{
     List<Subject> subjects = [];
-
     subjects.add(Subject(name: "Test01", color: Colors.blue,
       startTime: DateTime(2022, 1, 21, 11, 50), duration: Duration(hours: 1),
     ));
@@ -17,19 +16,29 @@ class Database{
       description: "This is sample data about the subject.\nNew line",
     ));
 
+    //NOTE: This is an artificial delay meant only to simulate fetching from
+    // the database, remove after db integration
+    await Future.delayed(Duration(seconds: 2));
+
     return subjects;
   }
 
-  static List<Task> getTasks(){
+  static Future<List<Task>> getTasks() async{
     List<Task> tasks = [];
 
-    tasks.add(Task(title: "Test work",  deadline: DateTime.now(), description: "This is sample data about the task.\nNew line", id: "10"));
-    tasks.add(Task(title: "Test work2", deadline: DateTime(2023), id: "11"));
+    //NOTE: This is an artificial delay meant only to simulate fetching from
+    // the database, remove after db integration
+    await Future.delayed(Duration(seconds: 2));
 
+    tasks.add(Task(title: "Test work",  deadline: DateTime.now(),
+        description: "This is sample data about the task.\nNew line", id: "10"));
+    tasks.add(Task(title: "Test work2", deadline: DateTime(2023), id: "11"));
 
     return tasks;
   }
-  static addNewTimeTable(List<List<Subject>> data) {
-
+  static void addNewTimeTable(List<List<Subject>> data) async {
+    //NOTE: This is an artificial delay meant only to simulate fetching from
+    // the database, remove after db integration
+    await Future.delayed(Duration(seconds: 2));
   }
 }
