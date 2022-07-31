@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'day.dart';
-import '../model/days.dart';
-import '../widgets/tasks_button.dart';
+import 'package:time_table_app/model/days.dart';
+import 'package:time_table_app/widgets/tasks_button.dart';
 import '../new_time_table/new_time_table_page.dart';
 
 class Home extends StatelessWidget {
@@ -26,14 +26,14 @@ class Home extends StatelessWidget {
       initialIndex: DateTime.now().weekday - 1,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(this.title),
+          title: Text(title),
           bottom: TabBar(
-            tabs: this.tabs,
+            tabs: tabs,
             isScrollable: true,
           ),
         ),
-        drawer: HomeDrawer(),
-        body: TabBarView(
+        drawer: const HomeDrawer(),
+        body: const TabBarView(
           children: [
             Day(day: Days.Monday),
             Day(day: Days.Tuesday),
@@ -44,7 +44,7 @@ class Home extends StatelessWidget {
             Day(day: Days.Sunday),
           ], //NOTE: The content for each day goes here
         ),
-        floatingActionButton: TasksButton(),
+        floatingActionButton: const TasksButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       ),
     );
@@ -63,10 +63,10 @@ class HomeDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           const DrawerHeader(
-            child: Text("Welcome back user"),
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
+            child: Text("Welcome back user"),
           ),
           ListTile(
             title: const Text(

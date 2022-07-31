@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'home/home_page.dart';
+import 'screens/home/home_page.dart';
 
 
 void main() {
-  runApp(App());
+  runApp(const App());
 }
 
 

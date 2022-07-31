@@ -8,33 +8,37 @@ class SubjectCard extends StatelessWidget {
   final Subject subject;
   final Widget time;
 
-  SubjectCard({Key? key, required this.subject}) :
-        this.time = Text(
+  SubjectCard({Key? key, required this.subject})
+      : time = Text(
           "${subject.startTime.hour.toString().padLeft(2, '0')} ${subject.startTime.minute.toString().padLeft(2, '0')}",
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
         super(key: key);
 
-  void openCard(BuildContext context){
-    Navigator.push(context, CustomPopupRoute(
-        builder: (context) => PopupSubjectCard(
-            subject: this.subject,
-        )
-    ));
+  void openCard(BuildContext context) {
+    Navigator.push(
+        context,
+        CustomPopupRoute(
+            builder: (context) => PopupSubjectCard(
+                  subject: subject,
+                )));
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Hero(
-        tag: this.subject.hashCode,
+        tag: subject.hashCode,
         child: Card(
-          color: this.subject.color,
+          color: subject.color,
           margin: EdgeInsets.zero,
-          shape: Border(),
-          child:  ListTile(
+          shape: const Border(),
+          child: ListTile(
             leading: time,
-            title: Text(subject.name, style: TextStyle(fontSize: 21),),
+            title: Text(
+              subject.name,
+              style: const TextStyle(fontSize: 21),
+            ),
             onTap: () => openCard(context),
           ),
         ),

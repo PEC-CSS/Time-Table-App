@@ -37,8 +37,8 @@ class _TaskPageState extends State<TaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Tasks"), ),
-      body: loading ? Center(child: CircularProgressIndicator()) : ListView(
+      appBar: AppBar(title: const Text("Tasks"), ),
+      body: loading ? const Center(child: CircularProgressIndicator()) : ListView(
         children: tasks,
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:time_table_app/tasks/tasks_page.dart';
+import 'package:time_table_app/screens/tasks/tasks_page.dart';
 
 
 class TasksButton extends StatelessWidget {
@@ -7,7 +7,7 @@ class TasksButton extends StatelessWidget {
 
   void onPressedCallback(BuildContext context){
     Navigator.push(context, MaterialPageRoute(
-        builder: (context) => TaskPage()
+        builder: (context) => const TaskPage()
       )
     );
   }
