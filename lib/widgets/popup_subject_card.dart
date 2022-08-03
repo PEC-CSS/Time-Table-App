@@ -12,7 +12,7 @@ class PopupSubjectCard extends StatelessWidget {
     return Center(
       child: Material(
         borderRadius: BorderRadius.circular(16.0),
-        color: Color.fromARGB(0, 0, 0, 0),
+        color: const Color.fromARGB(0, 0, 0, 0),
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: IntrinsicHeight(
@@ -22,12 +22,13 @@ class PopupSubjectCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Hero(
-                    tag: subject.hashCode,
-                    child: Material(
-                      borderRadius: BorderRadius.circular(16.0),
-                      child: SubjectInfoBox(subject: subject, color: this.subject.color,)
-                    )
-                  ),
+                      tag: subject.hashCode,
+                      child: Material(
+                          borderRadius: BorderRadius.circular(16.0),
+                          child: SubjectInfoBox(
+                            subject: subject,
+                            color: subject.color,
+                          ))),
                 ),
               ],
             ),
@@ -38,7 +39,6 @@ class PopupSubjectCard extends StatelessWidget {
   }
 }
 
-
 class SubjectInfoBox extends StatelessWidget {
   const SubjectInfoBox({
     Key? key,
@@ -48,6 +48,7 @@ class SubjectInfoBox extends StatelessWidget {
 
   final Subject subject;
   final Color color;
+  final bool isOwned = false;
 
   Color lighten(Color c, [int percent = 10]) {
     assert(1 <= percent && percent <= 100);
@@ -56,49 +57,59 @@ class SubjectInfoBox extends StatelessWidget {
         c.alpha,
         c.red + ((255 - c.red) * p).round(),
         c.green + ((255 - c.green) * p).round(),
-        c.blue + ((255 - c.blue) * p).round()
-    );
+        c.blue + ((255 - c.blue) * p).round());
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     DateTime finishTime = subject.startTime.add(subject.duration);
 
     return Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          color: this.color
-      ),
+          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+          color: color),
       child: SingleChildScrollView(
         child: Column(
-          //mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               subject.name,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold
-              ),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            Text("""${subject.startTime.hour.toString().padLeft(2, '0')}:${subject.startTime.minute.toString().padLeft(2, '0')} - ${finishTime.hour.toString().padLeft(2, '0')}:${finishTime.minute.toString().padLeft(2, '0')}"""),
-            SizedBox(height: 8.0,),
+            Text(
+                """${subject.startTime.hour.toString().padLeft(2, '0')}:${subject.startTime.minute.toString().padLeft(2, '0')} - ${finishTime.hour.toString().padLeft(2, '0')}:${finishTime.minute.toString().padLeft(2, '0')}"""),
+            const SizedBox(
+              height: 8.0,
+            ),
             Visibility(
               visible: subject.description.isNotEmpty,
               child: Container(
-                child: Text(subject.description,),
                 decoration: BoxDecoration(
                   color: lighten(color, 30),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 width: double.maxFinite,
-                padding: EdgeInsets.all(4.0),
-
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  subject.description,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 4.0,
+            ),
+            TextButton.icon(
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(lighten(color, 30))),
+              onPressed: () {},
+              icon: const Icon(Icons.edit, color: Colors.black, size: 16.0),
+              label: Text(
+                isOwned ? "Edit" : "Request Edit",
+                style: const TextStyle(color: Colors.black),
               ),
             )
           ],

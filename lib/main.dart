@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'screens/home/home_page.dart';
-
+import 'package:time_table_app/screens/wrapper.dart';
 
 void main() {
   runApp(const App());
@@ -14,9 +12,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: _title,
-      home: Home(title: _title,),
+      home: Wrapper(),
     );
   }
 }

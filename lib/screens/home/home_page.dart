@@ -1,23 +1,38 @@
 import 'package:flutter/material.dart';
-
+import 'package:time_table_app/screens/edit_time_table/edit_page.dart';
 import 'day.dart';
 import 'package:time_table_app/model/days.dart';
 import 'package:time_table_app/widgets/tasks_button.dart';
 import '../new_time_table/new_time_table_page.dart';
+import 'package:time_table_app/screens/add_time_table/add_time_table_page.dart';
 
 class Home extends StatelessWidget {
-  final String title;
+  static const String title = "Your Time Table";
   final List<Widget> tabs = <Widget>[
-    Tab(text: Days.Monday.name,),
-    Tab(text: Days.Tuesday.name,),
-    Tab(text: Days.Wednesday.name,),
-    Tab(text: Days.Thursday.name,),
-    Tab(text: Days.Friday.name,),
-    Tab(text: Days.Saturday.name,),
-    Tab(text: Days.Sunday.name,)
+    Tab(
+      text: Days.Monday.name,
+    ),
+    Tab(
+      text: Days.Tuesday.name,
+    ),
+    Tab(
+      text: Days.Wednesday.name,
+    ),
+    Tab(
+      text: Days.Thursday.name,
+    ),
+    Tab(
+      text: Days.Friday.name,
+    ),
+    Tab(
+      text: Days.Saturday.name,
+    ),
+    Tab(
+      text: Days.Sunday.name,
+    )
   ];
 
-  Home({Key? key, required this.title}) : super(key: key);
+  Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +41,7 @@ class Home extends StatelessWidget {
       initialIndex: DateTime.now().weekday - 1,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: const Text(title),
           bottom: TabBar(
             tabs: tabs,
             isScrollable: true,
@@ -68,21 +83,44 @@ class HomeDrawer extends StatelessWidget {
             ),
             child: Text("Welcome back user"),
           ),
-          ListTile(
-            title: const Text(
-              "Create a new timetable",
-              style: TextStyle(
-                fontSize: 18.0
-              ),
-            ),
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => NewTimeTablePage()
-              ));
-            },
+          DrawerItem(
+            title: "Create a new timetable",
+            createPage: () => NewTimeTablePage(),
+          ),
+          DrawerItem(
+            title: "Edit your timetables",
+            createPage: () => const EditPage(),
+          ),
+          DrawerItem(
+            title: "Add a time table",
+            createPage: () => const AddTimeTablePage(),
           )
         ],
       ),
+    );
+  }
+}
+
+class DrawerItem extends StatelessWidget {
+  final String title;
+  final Widget Function() createPage;
+  const DrawerItem({Key? key, required this.title, required this.createPage})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 18.0),
+      ),
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => createPage(),
+            ));
+      },
     );
   }
 }
